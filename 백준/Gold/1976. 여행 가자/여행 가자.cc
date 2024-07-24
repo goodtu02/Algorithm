@@ -3,22 +3,18 @@
 using namespace std;
 
 vector<int> city;
-vector<int> change;
 
 int find(int x) {
     if (city[x] == x) return x; // 대표 노드 반환
-    change.push_back(x);
-    return find(city[x]);
+    return city[x] = find(city[x]); //경로 압축
 }
 
 void union_(int x, int y) {
     //대표 노드 합치기
-    change.clear();
     x = find(x);
     y = find(y);
     city[x] = min(x, y);
     city[y] = min(x, y);
-    for (int i: change) city[i] = min(x, y);
 }
 
 int main() {
